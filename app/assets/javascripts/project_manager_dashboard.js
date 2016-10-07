@@ -14,17 +14,25 @@ $("document").ready(function(){
 
 	$(document).on("click", "#add-project-save-btn", function(e) {
     	e.preventDefault();
-    	var projectName = $("#project_name").val();
-    	var selectedDevIds = getCheckedItemsValues();
-    	var addedTodoList = getAddedTodoList();
-    	var form_data = {project_name: projectName, selected_dev_ids: selectedDevIds, todo_list: addedTodoList};
+    	if ($("#project_name").val().trim() == ""){
+    		
+    		alert("please enter title");
+    		return false;
+    	} else {
+	    	$("#project_name").prop('required',true);
 
-    	$.ajax({
-	      url: "/dashboard/save_project",
-	      type: "POST",
-	      data: form_data,
-	      dataType: "script"
-	    });
+	    	var projectName = $("#project_name").val();
+	    	var selectedDevIds = getCheckedItemsValues();
+	    	var addedTodoList = getAddedTodoList();
+	    	var form_data = {project_name: projectName, selected_dev_ids: selectedDevIds, todo_list: addedTodoList};
+
+	    	$.ajax({
+		      url: "/dashboard/save_project",
+		      type: "POST",
+		      data: form_data,
+		      dataType: "script"
+		    });
+    	}
     });
 
     $(document).on("click", "#cancel_add_dev_block", function(e){
@@ -32,11 +40,16 @@ $("document").ready(function(){
     	$("#add_developer_btn").show();
     });
 
+    $(document).on("click", "#cancel_add_todo_block", function(e){
+    	$("#add_todo_block").hide();
+    	$("#add_todo_btn").show();
+    });
+
     $(document).on("click", "#add_todo", function(e) {
     	var todoVal = $("#todo_description").val();
     	$("#added_todo_list").append("- <p>" + todoVal + "</p>");
     	$("#todo_description").val('');
-    })
+    });
 	
 });
 
@@ -62,7 +75,9 @@ function openDeveloperForm(e, project_status){
 }
 
 function openTodoForm(e){
-	$("#add_todo_block").empty().append($("<input type=\"text\" name=\"todoName\" id=\"todo_description\"><button type=\"button\" id=\"add_todo\">Add</button><br /><div id=\"added_todo_list\"></div>"));
+	$("#add_todo_block").show();
+	$("#add_todo_btn").hide();
+	$("#add_todo_block").empty().append($("<input type=\"text\" name=\"todoName\" id=\"todo_description\"><button type=\"button\" id=\"add_todo\">Add</button><br /><div id=\"added_todo_list\"></div><button type=\"reset\" value=\"Reset\" id=\"cancel_add_todo_block\">Cancel</button>"));
 
 }
 
