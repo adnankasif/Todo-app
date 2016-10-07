@@ -33,8 +33,9 @@ class DashboardController < ApplicationController
 
   def save_project
     begin
-      puts "params = #{params}"
-      # Project.save_project(title)
+      project_id = Project.save_project(params[:project_name])
+      ProjectDeveloper.assign_dev_to_project(project_id, params[:selected_dev_ids]) if (!params[:selected_dev_ids].blank?)
+      Todo.create_todo(project_id,params[:todo_list]) if (!params[:todo_list].blank?)
       redirect_to "/home"
     rescue Exception => e
       Rails.logger.error "message: #{e.message}"

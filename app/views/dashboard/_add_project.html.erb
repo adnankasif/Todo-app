@@ -4,7 +4,7 @@
 		<!-- <div class="confirmationmsg" id="setDefaultGroupConfirmationMessage">			
 		</div> -->
 		<div class="bottombtn">
-		Title: <input type="text" name="project_name" id="project_name"><br>
+		Title: <input type="text" name="project_name" id="project_name" required><br>
 		<br />
 		<input type="button" value="Add Developer" name="" id="add_developer_btn" onclick="openDeveloperForm(this, 'create');">
 		
@@ -12,8 +12,8 @@
 		<br />
 		<br />
 		<input type="button" value="Add Todo" name="" id="add_todo_btn" onclick="openTodoForm(this);">
-		<div id="add_todo_block" class="add_todo_block"></div>
-
+		<div id="add_todo_block" class="add_todo_block" hidden></div>
+		<br />
 		<br />
 		<div class="bottombtn">
 			<input type="submit" name="" value="Save" class="save_project_btn" id="add-project-save-btn">
