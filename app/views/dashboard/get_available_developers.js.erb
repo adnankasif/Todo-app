@@ -1,0 +1,2 @@
+$("#add_dev_block").empty().append("<%= escape_javascript(render(:partial=>'dashboard/add_developer', :locals => {:developers => @developers, :assign_devs => @assigned_developers})); %>");
+$("#add_dev_block").show();

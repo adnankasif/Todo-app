@@ -1,0 +1,11 @@
+Select Developers:
+<br />
+<% developers.each do  |developer| %>
+	<%if assign_devs.include? 'developer.id' %>
+		<input type="checkbox" class="dev_checkbox" value="<%= developer.id %> checked"><%= developer.first_name %><br>
+	<%else%>
+		<input type="checkbox" class="dev_checkbox" value="<%= developer.id %> "><%= developer.first_name %><br>
+	<%end%>
+<% end %>
+<input type ="hidden" name="developers" value="" id="checked_dev">
+<button type="reset" value="Reset" id="cancel_add_dev_block">Cancel</button>

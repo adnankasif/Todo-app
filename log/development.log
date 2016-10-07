@@ -1,0 +1,22 @@
+
+
+Started POST "/dashboard/save_project" for 127.0.0.1 at 2016-10-08 01:55:30 +0530
+Processing by DashboardController#save_project as JS
+  Parameters: {"project_name"=>"Project1", "selected_dev_ids"=>["2 ", "3 "], "todo_list"=>["test", "test1"]}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = 1  ORDER BY "users"."id" ASC LIMIT 1
+Redirected to http://localhost:3000/home
+Completed 200 OK in 3ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/home" for 127.0.0.1 at 2016-10-08 01:55:30 +0530
+Processing by DashboardController#home as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = 1  ORDER BY "users"."id" ASC LIMIT 1[0m
+Redirected to http://localhost:3000/project_manager_dashboard
+Completed 302 Found in 3ms (ActiveRecord: 0.8ms)
+
+
+Started GET "/project_manager_dashboard" for 127.0.0.1 at 2016-10-08 01:55:30 +0530
+Processing by DashboardController#project_manager_dashboard as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = 1  ORDER BY "users"."id" ASC LIMIT 1
+  Rendered dashboard/project_manager_dashboard.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 36ms (Views: 34.5ms | ActiveRecord: 0.4ms)
