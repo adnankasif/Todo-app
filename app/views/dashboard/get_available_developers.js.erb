@@ -1,2 +1,9 @@
-$("#add_dev_block").empty().append("<%= escape_javascript(render(:partial=>'dashboard/add_developer', :locals => {:developers => @developers, :assign_devs => @assigned_developers})); %>");
-$("#add_dev_block").show();
+var projectId = '<%= params[:project_id] %>';
+var todoId = '<%= params[:todo_id]%>';
+<% if params[:project_status] == "create" %>
+	$("#add_dev_block").empty().append("<%= escape_javascript(render(:partial=>'dashboard/add_developer', :locals => {:developers => @developers, :type => "create", :assign_devs => []})); %>");
+	$("#add_dev_block").show();
+<%else%>
+	$("#add_dev_block_pr"+todoId).empty().append("<%= escape_javascript(render(:partial=>'dashboard/add_developer', :locals => {:developers => @developers, :assign_devs => @assigned_developers, :type => "edit", :todoId => params[:todo_id]})); %>");
+	$("#add_dev_block_pr"+todoId).show();
+<%end%>

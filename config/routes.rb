@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   post '/dashboard/create_project' => 'dashboard#create_project'
   get  '/dashboard/get_developers' => 'dashboard#get_available_developers'
   post '/dashboard/save_project' => 'dashboard#save_project'
+  post '/dashboard/save_todo_for_project' => 'dashboard#save_todo'
+  post '/dashboard/assign_todo_dev' => 'dashboard#assign_todo_dev'
+  get '/dashboard/get_todo_status' => 'dashboard#get_todo_status'
+  post '/dashboard/change_todo_status' => 'dashboard#change_todo_status'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

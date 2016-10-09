@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
 		new_project = Project.new()
 		new_project.name = title
 		new_project.save!
+		new_project.id
 	end
 
 end

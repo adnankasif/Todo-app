@@ -1,11 +1,18 @@
 Select Developers:
 <br />
+
 <% developers.each do  |developer| %>
-	<%if assign_devs.include? 'developer.id' %>
-		<input type="checkbox" class="dev_checkbox" value="<%= developer.id %>" checked"><%= developer.first_name %><br>
+
+	<%if assign_devs.include? developer.id  %>
+		<input type="checkbox" class="dev_checkbox" value="<%= developer.id %>" checked="checked""><%= developer.first_name %><br>
 	<%else%>
 		<input type="checkbox" class="dev_checkbox" value="<%= developer.id %>"><%= developer.first_name %><br>
 	<%end%>
 <% end %>
 <input type ="hidden" name="developers" value="" id="checked_dev">
-<button type="reset" value="Reset" id="cancel_add_dev_block">Cancel</button>
+<%if type=="edit"%>
+	<button type="save" value="Save" id="save_add_dev_block" onclick="save_add_dev_block_pr(this,<%=todoId%>);" >Save</button>
+	<button type="reset" value="Reset" id="cancel_add_dev_block_pr<%=todoId%>" onclick="cancel_add_dev_block_pr(this,<%=todoId%>);" >Cancel</button>
+<%else%>
+	<button type="reset" value="Reset" id="cancel_add_dev_block">Cancel</button>
+<%end%>

@@ -7,4 +7,14 @@ class Todo < ActiveRecord::Base
   			Todo.create(project_id: project_id, item: dev_id)
   		end	
 	end
+
+	def self.get_status(todo_id)
+		Todo.where("id = ?", todo_id)
+	end
+
+	def self.change_status(params)
+		todo = Todo.find_by_id(params[:todo_id])
+		todo.update_attributes(:status => params[:status])
+	end
+
 end

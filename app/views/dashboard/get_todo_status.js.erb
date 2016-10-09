@@ -1,0 +1,5 @@
+var todoId= '<%=params[:todo_id]%>'
+$("#change_status_btn_for_todo"+todoId).hide();
+$("#add_change_status_block"+todoId).show();
+$("#add_change_status_block"+todoId).empty().append("<%= escape_javascript(render(:partial=>'dashboard/change_status', :locals => {status: @status, todoId: params[:todo_id]})); %>");
+

@@ -1,0 +1,9 @@
+<div id ="radio_option<%=todoId%>" class="radio_option">
+	<input type="radio" name="stat" value="new"> new<br>
+	<input type="radio" name="stat" value="in progress"> In Progress<br>
+	<input type="radio" name="stat" value="done"> Done<br>
+	<div class="bottombtn">
+		<input type="submit" name="" value="Save" class="save_status_btn" id="save_status_btn<%=todoId%>" onclick="save_change_status(this,<%=todoId%>);">
+		<button type="reset" value="Reset" id="cancel_status<%=todoId%>" onclick="cancel_change_status(this,<%=todoId%>);">Cancel</button>
+	</div>
+</div>

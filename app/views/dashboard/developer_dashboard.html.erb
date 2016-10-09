@@ -1,9 +1,23 @@
- 
+<script type="text/javascript">
+	var current_user_id ='<%=current_user.id %>';
+</script>
 <div id = "logout-button">
 	<%= form_tag( log_out_url, method: :delete ) %>
 	<%= submit_tag "Sign out" %>
 </div>
 
-<!-- <div class="btnrow">                
-    <input type="button" class="create-project" name="" value="Create Project" id="create-project-btn">
-</div> -->
+<% my_todo_list = DeveloperTodo.where("user_id = ?", current_user.id).pluck(:todo_id).to_a %>
+<% todo_list = Todo.where("id IN (?)", my_todo_list) %>
+
+
+<div id ="see_all_todo" class="see_all_todo">                
+    <b>My Todos</b><br \><br \>
+    <div id ="todo_dev" class="todo_dev">
+	    <% todo_list.each do |todo| %>
+	    	<div id ="see_my_todos<%=todo.id%>" class="see_my_todos">
+	    		<b>-> <%= todo.item %> </b> &ensp; <b> <%= todo.status %> </b> &ensp; <input type="button" value="Change Status" name="" id="change_status_btn_for_todo<%= todo.id %>" onclick="openChangeStatusOption(this,<%= todo.id%>);">
+				<div id="add_change_status_block<%= todo.id %>" class="add_change_stat_block_pr" hidden></div>   <br \><br \>
+			</div>
+	    <%end%>
+    </div>
+</div>

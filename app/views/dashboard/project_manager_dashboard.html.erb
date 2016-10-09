@@ -1,4 +1,43 @@
+<!-- <html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Done',     11],
+          ['In Progress',      2],
+          ['New',  2]
+        ]);
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html> -->
+
 <div id ="project_manager_dashboard_form">
+
+	<div class = "pie-chart">
+		<%@line_chart.each do |line|%>
+			<%= image_tag(line) %>
+		<%end%>
+	</div>
+	<br />
+
+
 	<div id = "logout-button">
 		<%= form_tag( log_out_url, method: :delete ) %>
 		<%= submit_tag "Sign out" %>
@@ -13,5 +52,98 @@
 	<div id ="add_todo_form">
 	</div>
 
-	
+	<br \>
+	<b>Project Status</b>
+	<br></br>
+	<% all_projects = Project.all %>
+	<% if !all_projects.empty? %>
+		<div class= "project_status_block">
+		<% all_projects.each do |project| %>
+				<b>-> <%= project.name%></b> <input type="button" value="Add Todo" name="" id="add_todo_btn_for_project<%= project.id%>" onclick="openTodoFormForProject(this,<%= project.id%>);"><br></br>
+				<div id="add_todo_block_pr<%= project.id%>" class="add_todo_block_pr" hidden></div>
+		<%end%>
+		</div>
+	<% end %>
+	<br \>
+	<b>Assign Todo</b>
+	<br></br>
+	<% all_todos = Todo.all %>
+	<% all_developers = User.where("role = ?", 2) %>
+	<% if !all_todos.empty? %>
+		<div class= "assign_todo_block">
+		<% all_todos.each do |todo| %>
+				<b>-> <%= todo.item%></b> <input type="button" value="Add Developer" name="" id="add_dev_btn_for_todo<%= todo.id %>" onclick="openAddDevFormForProject(this,<%= todo.id%>, <%= todo.project_id %>);"><br></br>
+				<div id="add_dev_block_pr<%= todo.id %>" class="add_dev_block_pr" hidden></div>
+		<%end%>
+		</div>
+	<% end %>
+
+	<br \>
+	<b>Developer Status</b> 
+		<br></br>
+		<% users = User.where("role= ?", 2) %>
+		<table width="100%" border="1" cellspacing="0" cellpadding="0" align="center">
+			<colgroup>
+			<col style="width: 15%;">
+			<%users.each do |user|%>
+	        	<col style="width: 13%;">
+         	<%end%>
+	        </colgroup>
+			<tr align="center">
+				<th class="table-heading border-right-none">Status</th>
+				<%users.each do |user|%>
+	        		<th class="table-heading border-right-none"><%= user.first_name %> </th>
+         		<%end%>
+				
+			</tr>
+
+				<tr>
+					<th class="table-heading border-right-none">New</th>
+					<%users.each do |user|%>
+						<% tot =[]%>
+						<% todos = DeveloperTodo.where("user_id= ?",user.id).pluck(:todo_id).to_a %>
+						<% new_todo = Todo.where("status = ? and id IN (?)", "new", todos) %>
+						<%count = new_todo.count%>
+						<% new_todo.each do |todo|%>
+							<% tot << todo.item %>
+						<%end%>
+						<th class="table-heading border-right-none" ><%= tot.join(",") %></th>
+					<%end%>
+				<!-- add  new todos for first developer -->
+				</tr>
+
+				<tr>
+					<th class="table-heading border-right-none">In progress</th>
+					<%users.each do |user|%>
+						<% tot =[]%>
+						<% todos = DeveloperTodo.where("user_id= ?",user.id).pluck(:todo_id).to_a %>
+						<% new_todo = Todo.where("status = ? and id IN (?)", "in progress", todos) %>
+						<%count = new_todo.count%>
+						<% new_todo.each do |todo|%>
+							<% tot << todo.item %>
+						<%end%>
+						<th class="table-heading border-right-none" ><%= tot.join(",") %></th>
+					<%end%>
+					
+				</tr>
+
+				<tr>
+					<th class="table-heading border-right-none">Done</th>
+					<%users.each do |user|%>
+						<% tot =[]%>
+						<% todos = DeveloperTodo.where("user_id= ?",user.id).pluck(:todo_id).to_a %>
+						<% new_todo = Todo.where("status = ? and id IN (?)", "done", todos) %>
+						<%count = new_todo.count%>
+						<% new_todo.each do |todo|%>
+							<% tot << todo.item %>
+						<%end%>
+						<th class="table-heading border-right-none" ><%= tot.join(",") %></th>
+					<%end%>
+
+				</tr>
+				
+
+		</table>
+
+
 </div>
