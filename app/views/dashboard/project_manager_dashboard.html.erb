@@ -1,41 +1,8 @@
-<!-- <html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Done',     11],
-          ['In Progress',      2],
-          ['New',  2]
-        ]);
-
-        var options = {
-          title: 'My Daily Activities'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
-  </body>
-</html> -->
 
 <div id ="project_manager_dashboard_form">
 
-	<div class = "pie-chart">
-		<%@line_chart.each do |line|%>
-			<%= image_tag(line) %>
-		<%end%>
-	</div>
-	<br />
+	
 
 
 	<div id = "logout-button">
@@ -43,7 +10,7 @@
 		<%= submit_tag "Sign out" %>
 	</div>
 
-	<div class="btnrow">                
+	<div class="btnrow create-project">                
 	    <input type="button" class="create-project" name="" value="Create Project" id="create-project-btn">
 	</div>
 	
@@ -145,5 +112,13 @@
 
 		</table>
 
+<br />
+<div class = "pie-chart">
+	<b>Todo status Project-Wise</b><br />
+		<%@line_chart.each do |line|%>
+			<%= image_tag(line) %>
+		<%end%>
+	</div>
+	
 
 </div>

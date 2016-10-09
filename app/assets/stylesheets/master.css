@@ -27,7 +27,7 @@
     padding: 12px;
     width: 441px;
     }
-.pie-chart{
+.pie-chart, .confirmation{
     border-style: groove;
     margin: 1px;
     padding: 12px;
