@@ -46,10 +46,7 @@ class DashboardController < ApplicationController
   def get_available_developers()
     begin 
       @developers = User.get_all_developers
-      # @assigned_developers = params[:project_status] == "create" ? [] : ProjectDeveloper.get_all_assigned_developers_ids(params[:project_id])
       @assigned_developers = params[:project_status] == "create" ? [] : DeveloperTodo.get_all_assigned_developers_ids(params[:todo_id])
-      puts "developers-----------------", @developers.inspect
-      puts "assigned_developers------------------", @assigned_developers.inspect
     rescue Exception => e
       Rails.logger.error "message: #{e.message}"
     end
